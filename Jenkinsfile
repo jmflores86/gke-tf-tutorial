@@ -1,6 +1,6 @@
 node {
-  withCredentials([file(credentialsId: 'terrafom2-auth', variable: 'my-auth')]){
-   sh "cp \$my-auth /src/main/resources/serviceaccount.json"
+  withCredentials([file(credentialsId: 'terrafom2-auth', variable: 'login')]){
+   sh "cp \$login /src/main/resources/serviceaccount.json"
   }
 }
 
