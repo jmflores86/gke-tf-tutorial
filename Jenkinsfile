@@ -1,5 +1,5 @@
 node {
-  withCredentials([file(credentialsId: 'terraform2-auth', variable: 'my-auth'){
+  withCredentials([file(credentialsId: 'terraform2-auth', variable: 'my-auth')]){
    sh "cp \$my-auth /src/main/resources/serviceaccount.json"
   }
 }
