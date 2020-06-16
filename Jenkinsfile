@@ -18,7 +18,7 @@ pipeline {
       steps {
         checkout scm
         sh 'mkdir -p creds' 
-        sh 'cat /tmp/serviceaccount.json | base64 -d > ./creds/serviceaccount.json'
+        sh 'cat /tmp/serviceaccount.json'
       }
     }
 
