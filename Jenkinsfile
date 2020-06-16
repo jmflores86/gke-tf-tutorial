@@ -1,8 +1,8 @@
 node {
   withCredentials([file(credentialsId: 'terrafom2-auth', variable: 'login')]){
-    sh "mkdir -p creds"
-    sh "cp \$login ./creds/serviceaccount.json"
-    sh "cat ./creds/serviceaccount.json"
+    sh "mkdir -p /home/jenkins/agent/workspace/creds"
+    sh "cp \$login /home/jenkins/agent/workspace/creds/serviceaccount.json"
+    sh "cat /home/jenkins/agent/workspace/creds/serviceaccount.json"
   }
 }
 
@@ -15,6 +15,13 @@ pipeline {
   }
 
   stages {
+    
+    stage('Checkout') {
+      steps {
+        checkout scm
+        sh 'cat /home/jenkins/agent/workspace/creds/serviceaccount.json'
+      }
+    }
 
     stage('TF Plan') {
       steps {
