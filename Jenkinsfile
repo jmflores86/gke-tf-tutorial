@@ -1,3 +1,9 @@
+node {
+  withCredentials([file(credentialsId: 'terraform2-auth', variable: 'my-auth'){
+   sh "cp \$my-auth ./creds/serviceaccount.json"
+  }
+}
+
 pipeline {
 
   agent any
@@ -7,18 +13,6 @@ pipeline {
   }
 
   stages {
-
-    stage('Checkout') {
-      steps {
-        checkout scm
-        sh 'mkdir -p creds' 
-        sh 'echo $SVC_ACCOUNT_KEY > ./creds/encrypted'
-        sh 'cat ./creds/encrypted'
-        sh 'echo "hola mundo" > ./creds/hola.txt'
-        sh 'cat ./creds/hola.txt'
-        sh 'base64 -d ./creds/encrypted > ./creds/serviceaccount.json'
-      }
-    }
 
     stage('TF Plan') {
       steps {
