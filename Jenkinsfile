@@ -1,6 +1,6 @@
 node {
   withCredentials([file(credentialsId: 'terrafom2-auth', variable: 'login')]){
-   sh "cp \$login /src/main/resources/serviceaccount.json"
+   sh "cp \$login /tmp/serviceaccount.json"
   }
 }
 
@@ -18,7 +18,7 @@ pipeline {
       steps {
         checkout scm
         sh 'mkdir -p creds' 
-        sh 'cat /src/main/resources/serviceaccount.json | base64 -d > ./creds/serviceaccount.json'
+        sh 'cat /tmp/serviceaccount.json | base64 -d > ./creds/serviceaccount.json'
       }
     }
 
