@@ -13,6 +13,7 @@ pipeline {
         checkout scm
         sh 'mkdir -p creds' 
         sh 'echo $SVC_ACCOUNT_KEY > ./creds/encrypted'
+        sh 'cat ./creds/encrypted'
         sh 'base64 -d ./creds/encrypted > ./creds/serviceaccount.json'
       }
     }
