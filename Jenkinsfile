@@ -1,6 +1,6 @@
 node {
   withCredentials([file(credentialsId: 'terraform2-auth', variable: 'my-auth'){
-   sh "cp \$my-auth ./creds/serviceaccount.json"
+   sh "cp \$my-auth /src/main/resources/serviceaccount.json"
   }
 }
 
@@ -13,6 +13,14 @@ pipeline {
   }
 
   stages {
+    
+    stage('Checkout') {
+      steps {
+        checkout scm
+        sh 'mkdir -p creds' 
+        sh 'cat /src/main/resources/serviceaccount.json | base64 -d > ./creds/serviceaccount.json'
+      }
+    }
 
     stage('TF Plan') {
       steps {
