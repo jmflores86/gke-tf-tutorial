@@ -1,5 +1,5 @@
 provider "google" {
   credentials = file("./creds/serviceaccount.json")
-  project     = "tim-home"
+  project     = "or2-m-epm-gcp-us-anthos-t1iylu"
   region      = "europe-west1"
 }
