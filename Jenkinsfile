@@ -1,11 +1,3 @@
-node {
-  withCredentials([file(credentialsId: 'terrafom2-auth', variable: 'login')]){
-    sh "mkdir -p /home/jenkins/agent/workspace/creds"
-    sh "cp \$login /home/jenkins/agent/workspace/creds/serviceaccount.json"
-    sh "cat /home/jenkins/agent/workspace/creds/serviceaccount.json"
-  }
-}
-
 pipeline {
 
   agent any
@@ -15,11 +7,12 @@ pipeline {
   }
 
   stages {
-    
+
     stage('Checkout') {
       steps {
         checkout scm
-        sh 'cat /home/jenkins/agent/workspace/creds/serviceaccount.json'
+        sh 'mkdir -p creds' 
+        sh 'echo $SVC_ACCOUNT_KEY | base64 -d > ./creds/serviceaccount.json'
       }
     }
 
