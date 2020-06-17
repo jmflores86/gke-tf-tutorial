@@ -19,7 +19,7 @@ pipeline {
     stage('TF Plan') {
       steps {
         container('terraform') {
-          sh 'terraform init'
+          sh 'terraform init -reconfigure'
           sh 'terraform plan -out myplan'
         }
       }      
